@@ -2,6 +2,7 @@ let firstColor;
 let prevSelected;
 let cor;
 let colorValue;
+let n = 5;
 
 const pageTitle = document.getElementsByTagName('h1');
 pageTitle[0].setAttribute('id', 'title');
@@ -21,11 +22,28 @@ mainTag[0].appendChild(createPixelBoard);
 
 const pixelBoard = document.getElementById('pixel-board');
 
-const button = document.createElement('button');
-button.setAttribute('id', 'clear-board');
-button.innerHTML = 'Limpar';
-mainTag[0].insertBefore(button, colorPalette.nextSibling);
+const createDiv = document.createElement('div');
+createDiv.setAttribute('id', 'buttons');
+mainTag[0].insertBefore(createDiv, colorPalette.nextSibling);
 
+const buttonLimpar = document.createElement('button');
+buttonLimpar.setAttribute('id', 'clear-board');
+buttonLimpar.innerHTML = 'Limpar';
+document.getElementById('buttons').appendChild(buttonLimpar);
+
+const createInput = document.createElement('input');
+createInput.setAttribute('id', 'board-size');
+createInput.setAttribute('placeholder', 'Quadro');
+createInput.setAttribute('type', 'number');
+createInput.setAttribute('min', '0');
+createInput.setAttribute('max', '10');
+document.getElementById('buttons').appendChild(createInput);
+const boardSize = document.getElementById('board-size');
+
+const buttonVqv = document.createElement('button');
+buttonVqv.setAttribute('id', 'generate-board');
+buttonVqv.innerHTML = 'VQV';
+document.getElementById('buttons').appendChild(buttonVqv);
 
 function createColor() {
   let color;
@@ -38,20 +56,20 @@ function createColor() {
 }
 createColor();
 
-function createPixel() {
+function createPixel(n) {
   let pixel;
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < n; index += 1) {
     const createSection = document.createElement('section');
     pixelBoard.appendChild(createSection);
     const linhas = document.getElementsByTagName('section');
-    for (let index2 = 0; index2 < 5; index2 += 1) {
+    for (let index2 = 0; index2 < n; index2 += 1) {
       pixel = document.createElement('div');
       pixel.setAttribute('class', 'pixel');
       linhas[index].appendChild(pixel);
     }
   }
 }
-createPixel();
+createPixel(n);
 
 function selectColor() {
   const colors = document.getElementsByClassName('color');
@@ -81,12 +99,18 @@ function paintPixel() {
 }
 paintPixel();
 
-button.addEventListener('click', function() {
+buttonLimpar.addEventListener('click', function () {
   let pixels = document.getElementsByClassName('pixel');
   for (let index = 0; index < pixels.length; index += 1) {
     pixels[index].style.backgroundColor = 'white';
   }
 });
 
-
-
+buttonVqv.addEventListener('click', function () {
+  let list = document.getElementById('pixel-board');
+  for (child of list.children) {
+    child.remove();
+  }
+  n = parseInt(document.getElementById('board-size').value);
+  createPixel(n);
+});
