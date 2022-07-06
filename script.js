@@ -1,5 +1,4 @@
 let firstColor;
-let nowSelected;
 let prevSelected;
 let cor;
 let colorValue;
@@ -21,6 +20,12 @@ createPixelBoard.setAttribute('id', 'pixel-board');
 mainTag[0].appendChild(createPixelBoard);
 
 const pixelBoard = document.getElementById('pixel-board');
+
+const button = document.createElement('button');
+button.setAttribute('id', 'clear-board');
+button.innerHTML = 'Limpar';
+mainTag[0].insertBefore(button, colorPalette.nextSibling);
+
 
 function createColor() {
   let color;
@@ -49,7 +54,7 @@ function createPixel() {
 createPixel();
 
 function selectColor() {
-  let colors = document.getElementsByClassName('color');
+  const colors = document.getElementsByClassName('color');
   prevSelected = document.getElementsByClassName('selected');
   for (let index = 0; index < colors.length; index += 1) {
     colors[index].addEventListener('click', function () {
@@ -59,7 +64,6 @@ function selectColor() {
       colors[index].classList.toggle('selected');
     });
   }
-  nowSelected = document.getElementsByClassName('selected');
   firstColor = document.getElementById('first-color');
   firstColor.classList.add('selected');
 }
@@ -76,4 +80,13 @@ function paintPixel() {
   }
 }
 paintPixel();
+
+button.addEventListener('click', function() {
+  let pixels = document.getElementsByClassName('pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = 'white';
+  }
+});
+
+
 
