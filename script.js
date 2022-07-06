@@ -1,3 +1,6 @@
+let firstColor;
+let selected;
+
 const pageTitle = document.getElementsByTagName('h1');
 pageTitle[0].setAttribute('id', 'title');
 pageTitle[0].innerHTML = 'Paleta de Cores';
@@ -17,7 +20,7 @@ function createColor () {
 }
 createColor();
 
-colorPalette.firstChild.setAttribute('id', 'firstColor');
+colorPalette.firstChild.setAttribute('id', 'first-color');
 
 const createPixelBoard = document.createElement('div');
 createPixelBoard.setAttribute('id', 'pixel-board');
@@ -38,4 +41,11 @@ function createPixel () {
   }
 }
 createPixel();
+
+window.onload = function() {
+  firstColor = document.getElementById('first-color');
+  firstColor.setAttribute('class', 'selected');
+};
+
+
 
